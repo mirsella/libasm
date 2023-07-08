@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 		free(dup);
 	}
 
-	if (argc != 2 && strcmp(argv[1], "bonus") != 0)
+	if (argc != 2 || strcmp(argv[1], "bonus") != 0)
 		return EXIT_SUCCESS;
 
 	{
