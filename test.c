@@ -82,7 +82,11 @@ int main(int argc, char *argv[])
 			printf("ft_strdup problem test n1. strdup(%s) -> %s \n", test, dup);
 		free(dup);
 	}
-	if (argc == 2 && strcmp(argv[1], "bonus") == 0) {
+
+	if (argc != 2 && strcmp(argv[1], "bonus") != 0)
+		return EXIT_SUCCESS;
+
+	{
 		printf("testing bonus\n");
 		t_list c = {"c",NULL};
 		t_list b = {"b",&c};
@@ -93,13 +97,14 @@ int main(int argc, char *argv[])
 		t_list	*ptr = &a;
 		ft_list_push_front(&ptr, "first");
 		if (strcmp(ptr->data, "first") != 0)
-			printf("ft_list_push_front problem nest n1. new front should be 'first' but is %s", (char *)ptr->data);
+			printf("ft_list_push_front problem nest n1. new front should be 'first' but is %s\n", (char *)ptr->data);
 		t_list *ptr2 = NULL;
 		ft_list_push_front(&ptr2, "test");
 		if (!ptr)
-			printf("ft_list_push_front problem nest n2. ptr2 is null");
+			printf("ft_list_push_front problem nest n2. ptr2 is null\n");
 		if (strcmp(ptr2->data, "test") != 0)
-			printf("ft_list_push_front problem nest n3. ptr2->data shoud be 'test' but is %s", (char *)ptr->data);
+			printf("ft_list_push_front problem nest n3. ptr2->data shoud be 'test' but is %s\n", (char *)ptr->data);
 	}
+
 	return EXIT_SUCCESS;
 }

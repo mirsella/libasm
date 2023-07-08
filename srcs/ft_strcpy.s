@@ -5,16 +5,18 @@ global ft_strcpy
 ft_strcpy:
 xor rcx, rcx
 
-cmp rsi, 0
+cmp rsi, 0 ; in case *s is NULL
 jz return
 
 copy_loop:
+cmp byte [rsi], 0 ; check for \0
+je return
 mov al, [rsi]
 mov [rdi+rcx], al
 inc rcx
 inc rsi
 cmp byte [rsi], 0
-jne copy_loop
+jmp copy_loop
 
 return:
 mov rax, rdi
