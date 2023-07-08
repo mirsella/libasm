@@ -1,6 +1,7 @@
 libasmTester/
 42libasm_tester/
 test
+.vgcore.*
 # Prerequisites
 *.d
 

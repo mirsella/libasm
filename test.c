@@ -5,6 +5,11 @@
 #include <errno.h>
 #include <fcntl.h>
 
+typedef struct s_list {
+	void *data;
+	struct s_list *next;
+} t_list;
+
 size_t ft_strlen(const char *s);
 char *ft_strcpy(char *restrict dst, const char *restrict src);
 int ft_strcmp(const char *s1, const char *s2);
@@ -12,11 +17,11 @@ ssize_t ft_write(int fd, const void *buf, size_t count);
 ssize_t ft_read(int fildes, void *buf, size_t nbyte);
 char *ft_strdup(const char *s);
 
+int	ft_list_size(t_list *begin_list);
+void	ft_list_push_front(t_list **begin_list, void *data);
+
 int main(int argc, char *argv[])
 {
-	(void)argc;
-	(void)argv;
-
 	{
 		char test[] = "Hello World";
 		if (ft_strlen(test) != strlen(test))
@@ -45,7 +50,7 @@ int main(int argc, char *argv[])
 			printf("ft_strcmp problem test n4. 'HelloA' == 'Hello'\n");
 	}
 	{
-		int ret = ft_write(1, "ft_write if you see this write passed test n1\n", 47);
+		int ret = ft_write(1, "if you see this ft_write passed test n1\n", 47);
 		if (ret != 47)
 			printf("ft_write problem test n2. return size\n");
 		write(-1, "test", 4);
@@ -76,6 +81,25 @@ int main(int argc, char *argv[])
 		if (strcmp(test, dup))
 			printf("ft_strdup problem test n1. strdup(%s) -> %s \n", test, dup);
 		free(dup);
+	}
+	if (argc == 2 && strcmp(argv[1], "bonus") == 0) {
+		printf("testing bonus\n");
+		t_list c = {"c",NULL};
+		t_list b = {"b",&c};
+		t_list a = {"a",&b};
+		int size = ft_list_size(&a);
+		if (size != 3)
+			printf("ft_list_size problem test n1. size != 2\n");
+		t_list	*ptr = &a;
+		ft_list_push_front(&ptr, "first");
+		if (strcmp(ptr->data, "first") != 0)
+			printf("ft_list_push_front problem nest n1. new front should be 'first' but is %s", (char *)ptr->data);
+		t_list *ptr2 = NULL;
+		ft_list_push_front(&ptr2, "test");
+		if (!ptr)
+			printf("ft_list_push_front problem nest n2. ptr2 is null");
+		if (strcmp(ptr2->data, "test") != 0)
+			printf("ft_list_push_front problem nest n3. ptr2->data shoud be 'test' but is %s", (char *)ptr->data);
 	}
 	return EXIT_SUCCESS;
 }
